@@ -2,7 +2,7 @@ class SignupController < ApplicationController
   before_action :authorize_request, except: :create
   before_action :find_user, except: %i[create index]
 
-  # POST /users
+  # POST /signup
   def create
     @user = User.new(user_params)
     if @user.save
