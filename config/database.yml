@@ -9,11 +9,11 @@ default: &default
 
 development:
   <<: *default
-  database: todo_development
+  database: todo_dev
 
 test:
   <<: *default
-  database: todo_test
+  database: todo_to_test
 
 production:
   <<: *default
