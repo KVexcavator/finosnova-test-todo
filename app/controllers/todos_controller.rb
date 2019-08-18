@@ -6,9 +6,10 @@ class TodosController < ApplicationController
   def index
     @todos = current_user.todos
     @switch = 0
-    if @switch = 1
+    if @switch == 1
+      # return finished list
       render json: @todos.as_json(only: [:finished => true])
-    elsif @switch = -1
+    elsif @switch == -1
       render json: @todos.as_json(only: [:finished => false])
     else
       render json: @todos
@@ -23,12 +24,8 @@ class TodosController < ApplicationController
   # POST /todos
   def create
     @todo = current_user.todos.build(todo_params)
-
-    if @todo.save
-      render json: @todo, status: :created, location: @todo
-    else
-      render json: @todo.errors, status: :unprocessable_entity
-    end
+    @todo.save!
+    render json: @todo, status: :created, location: @todo
   end
 
   # PATCH/PUT /todos/1
