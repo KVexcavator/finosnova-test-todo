@@ -5,8 +5,14 @@ class TodosController < ApplicationController
   # GET /todos
   def index
     @todos = current_user.todos
-
-    render json: @todos
+    @switch = 0
+    if @switch = 1
+      render json: @todos.as_json(only: [:finished => true])
+    elsif @switch = -1
+      render json: @todos.as_json(only: [:finished => false])
+    else
+      render json: @todos
+    end
   end
 
   # GET /todos/1
@@ -37,6 +43,7 @@ class TodosController < ApplicationController
   # DELETE /todos/1
   def destroy
     @todo.destroy
+    head :no_content
   end
 
   private
@@ -46,6 +53,6 @@ class TodosController < ApplicationController
   end
 
   def todo_params
-    params.require(:todo).permit(:title)
+    params.require(:todo).permit(:title, :body, :finished)
   end
 end
