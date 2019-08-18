@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::API
   require 'json_web_token'
-  def not_found
-    render json: { error: 'not_found' }
-  end
-
+  private
+  
   def authorize_request
     header = request.headers['Authorization']
     header = header.split(' ').last if header
@@ -16,4 +14,14 @@ class ApplicationController < ActionController::API
       render json: { errors: e.message }, status: :unauthorized
     end
   end
+
+  def current_user
+    @current_user ||= session[:current_user_token] && User.find_by(id: session[:current_user_token])
+  end
+
+  def not_found
+    render json: { error: 'not_found' }
+  end
+
+
 end

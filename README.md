@@ -10,6 +10,6 @@ Things you may want to cover:
 * System: Ubuntu 18.04
 * Database: Postgres
 * How to run the test suite: set date to config/datadase.yml; create db, db migrate; bundle install; install node, yalm, vue-cli and init npm; bundle binstubs bundler --force; foreman start.
-* Run all spec test: bundle exec rspec
+* Run all spec test: rspec
 * Deployment instructions:
 
