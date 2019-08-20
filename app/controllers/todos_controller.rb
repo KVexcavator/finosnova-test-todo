@@ -1,10 +1,9 @@
 class TodosController < ApplicationController
-  before_action :authorize_request
   before_action :set_todo, only: [:show, :update, :destroy]
 
   # GET /todos
   def index
-    @todos = current_user.todos
+    @todos = Todo.all
     @switch = 0
     if @switch == 1
       # return finished list
@@ -23,12 +22,12 @@ class TodosController < ApplicationController
 
   # POST /todos
   def create
-    @todo = current_user.todos.build(todo_params)
+    @todo = Todo.create(todo_params)
     @todo.save!
     render json: @todo, status: :created, location: @todo
   end
 
-  # PATCH/PUT /todos/1
+  # PUT /todos/1
   def update
     if @todo.update(todo_params)
       render json: @todo
@@ -46,10 +45,10 @@ class TodosController < ApplicationController
   private
 
   def set_todo
-    @todo = current_user.todos.find(params[:id])
+    @todo = Todo.find(params[:id])
   end
 
   def todo_params
-    params.require(:todo).permit(:title, :body, :finished)
+    params.require(:todo).permit(:title, :body, :finished, :user_id)
   end
 end

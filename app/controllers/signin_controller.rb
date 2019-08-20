@@ -7,7 +7,7 @@ class SigninController < ApplicationController
   def create
     user = User.find_by(email: params[:email].to_s)
     if user && user.authenticate(params[:password])
-      token = JsonWebToken.encode(user_id: user.id)
+      token = JsonWebToken.encode({user_id: user.id})
       session[:current_user_token] = token
       time = session[:current_user_exp]
       render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"),

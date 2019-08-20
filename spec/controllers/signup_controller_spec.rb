@@ -14,7 +14,8 @@ RSpec.describe SignupController, type: :controller do
     it 'creates a new user' do
       expect do
         post :create, params: user_params
-      end.to change(User, :count).by(1)
+        expect(response).to change(User, :count).by(1)
+      end
     end
     
   end
